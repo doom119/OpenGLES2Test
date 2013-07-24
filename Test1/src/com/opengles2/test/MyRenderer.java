@@ -23,7 +23,7 @@ public class MyRenderer implements Renderer
 	public void onDrawFrame(GL10 gl)
 	{
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-		
+
 		mSquare.draw(mProgram);
 	}
 
@@ -39,16 +39,16 @@ public class MyRenderer implements Renderer
 		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 		int program = GLES20.glCreateProgram();
-		Log.d("MyRenderer", "onSurfaceCreated,program"+program);
-		
-		if(program != 0)
+		Log.d("MyRenderer", "onSurfaceCreated,program" + program);
+
+		if (program != 0)
 		{
 			mSquare = new Square(program);
 		}
-		
+
 		GLES20.glLinkProgram(program);
 		GLES20.glUseProgram(program);
-		
+
 		mProgram = program;
 	}
 
@@ -57,13 +57,21 @@ public class MyRenderer implements Renderer
 		int shader = -1;
 		String shaderContent = FileUtils.loadFileFromAssets(mContext, filename);
 		shader = GLES20.glCreateShader(type);
-		if(shader != 0)
+		if (shader != 0)
 		{
 			GLES20.glShaderSource(shader, shaderContent);
 			GLES20.glCompileShader(shader);
 		}
-		Log.d("MyRenderer", "loadShader,shader:"+shader);
+		Log.d("MyRenderer", "loadShader,shader:" + shader);
 		return shader;
+	}
+
+	public static int loadTextureFromResource(int resId)
+	{
+		int handle = TexUtils.loadTextureFromResource(mContext, resId);
+		Log.d("MyRenderer", "loadTextureFromResource, texture data handle:"
+				+ handle);
+		return handle;
 	}
 
 }
