@@ -2,14 +2,33 @@ package com.opengles2.test;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
 
+	private MyGLSurfaceView mView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		
+		mView = new MyGLSurfaceView(getApplicationContext());
+		setContentView(mView);
+
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		mView.onPause();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		mView.onResume();
 	}
 
 	@Override
